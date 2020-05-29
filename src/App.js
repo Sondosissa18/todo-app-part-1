@@ -41,7 +41,17 @@ class App extends Component {
     });
   };
 
+  handleChange = (e) => {
+    this.setState({
+      value: e.target.value,
+    });
+  };
+
   SubmitTodohandle = (event) => {
+    // let itemsNumber = 0
+    // let items = this.state.todos.
+    let mytarget = event.target;
+    let count = this.state.items;
     if (event.key === "Enter") {
       let newtodos = [...this.state.todos];
       event.preventDefault();
@@ -52,9 +62,13 @@ class App extends Component {
         completed: false,
       };
       newtodos.push(newtodo);
+      count++;
       this.setState({
         todos: newtodos,
+        items: count,
+        value: "",
       });
+      mytarget.value = "";
       // this.props.todos(this.state);
     }
   };
@@ -68,6 +82,8 @@ class App extends Component {
           <input
             className="new-todo"
             type="text"
+            value={this.props.value}
+            onChange={this.handleChange}
             onKeyDown={this.SubmitTodohandle}
             placeholder="What needs to be done?"
             autoFocus
@@ -94,14 +110,6 @@ class App extends Component {
 }
 
 class TodoItem extends Component {
-  // completeChange = () => {};
-
-  // handleTodoChange = (event) => {
-  //   this.setState({
-  //     title: event.target.value,
-  //   });
-  // };
-
   render() {
     return (
       <li className={this.props.completed ? "completed" : ""}>
@@ -121,8 +129,6 @@ class TodoItem extends Component {
 }
 
 class TodoList extends Component {
-  // if(todo.completed === true ? () : null
-  // let todosList = todos.length ? () : null;
   render() {
     console.log(this.props);
     return (
